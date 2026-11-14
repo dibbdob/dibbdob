@@ -38,7 +38,7 @@ GitHub runs were on its first copy.
 
 | Repository | What it is | Built with | Stages | Tests | ADRs |
 |---|---|---|---|---|---|
-| `claude-code-governed-workflow` | A Claude Code setup that delivers an OpenSpec change end to end: a coordinator command, a read-only spec reader, a reviewer that is never told the author's reasons, hooks and checks that enforce what prompts only ask, packaged as a plugin, and built for a team: a brief in an issue, refinement as a reviewed pull request with its risk stated, a folder per delivery, pull requests checked on GitHub | Claude Code, OpenSpec, Node, Python, GitHub Actions | 15 | 52, and the hook's own | 9 |
+| `claude-code-governed-workflow` | A Claude Code setup that delivers an OpenSpec change end to end: a coordinator command, a read-only spec reader, a reviewer that is never told the author's reasons, hooks and checks that enforce what prompts only ask, packaged as a plugin, and built for a team: a brief in an issue, refinement as a reviewed pull request with its risk stated, a folder per delivery, pull requests checked on GitHub | Claude Code, OpenSpec, Node, Python, GitHub Actions | 17 | 55, and the hook's own | 9 |
 | `claude-structured-extraction` | Turns a support email into the fields a desk acts on, with the Claude API: structured outputs, validation with one corrective retry, a cached prompt, an eval with confidence intervals, batch backfill, model routing held to a measurement | C#, .NET 10, `Anthropic` SDK | 8 | 48 | 6 |
 | `mcp-server-dotnet` | An MCP server over the desk's tickets: tools a model can choose between, errors it can act on, annotations a host can trust, customer text labelled as untrusted, Streamable HTTP behind an origin check and a token | C#, `ModelContextProtocol` SDK | 8 | 37, all through the protocol | 4 |
 | `agent-sdk-orchestrator` | Triages the open tickets with a hub of isolated worker agents: a checked structured handoff, synthesis from findings only, partial completion, a tool guard and audit hook, budgets, resume, an escalation queue | TypeScript, Claude Agent SDK | 8 | 29 | 5 |
@@ -76,7 +76,7 @@ ADRs, the eval, the budgets and the guards.
   dashboard whose p95 was wrong by a factor of 500. Each is in the commit that fixed it.
 - **Running it for real finds what a stand-in cannot.** The first live runs found an empty field the API
   refused, a summary that miscounted its own tickets, copied code that lagged its source's fix, a reviewer
-  that kept finding smaller things for four rounds, and a command list that let an unlisted `rm` through.
+  that kept finding smaller things for four rounds, a command list that let an unlisted `rm` through, and delivery tests that failed only on GitHub's machines.
   Each is fixed in its repository's last stage.
 - **Instructions are enforced where they can be.** A rule that matters becomes a hook, a schema, a
   bound tool, a build gate or a type, and the prose points at it.
@@ -87,14 +87,14 @@ ADRs, the eval, the budgets and the guards.
   and fallbacks included. Repo 1's unattended runs are capped by a turn limit, and its run on GitHub starts
   only when someone adds a label; repo 5 calls a model only once switched to live mode.
 - **Each README says what has not been verified.** A live run is a decision about spending money, not
-  something a build should make. The five that were made cost under $4 in all, most of it one unattended
-  delivery.
+  something a build should make. The ones that were made cost under $7 in all, most of it two unattended
+  deliveries.
 
 ## What has not been run yet
 
 | Repository | Not yet run | How |
 |---|---|---|
-| `claude-code-governed-workflow` | `/deliver` in an attended session, OpenSpec's propose and explore skills, the packaged plugin installed, and the overnight `deliver` workflow (an unattended delivery has run for real, and the build, ruleset, `refined` and `claimed` on GitHub) | A session, then the README's bot setup |
+| `claude-code-governed-workflow` | `/deliver` in an attended session, OpenSpec's explore skill, the packaged plugin installed, and a delivery under a separate bot account (a change has been refined and delivered overnight on GitHub, with the build, ruleset, `refined` and `claimed`) | A session, then the README's bot setup |
 | `claude-structured-extraction` | The batch backfill, and a refusal answered by server-side fallback (the three evals have run, and settled ADR 0006) | `backfill … --yes`, then a ticket that triggers a refusal |
 | `mcp-server-dotnet` | An attended session approving the server, and a host other than Claude Code (a model has used the tools headless) | Approve the project server in Claude Code |
 | `agent-sdk-orchestrator` | A partial run and its resume, and a worker stopped by its budget (a full triage has run) | `--yes --budget 0.05`, then `--yes --run <id>` |

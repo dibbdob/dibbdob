@@ -29,8 +29,8 @@ Certified Architect – Foundations exam, and for the work its partners' clients
 **How it was made.** I built these in November 2026, with Claude Code. Each history is arranged as the
 stages of lessons learned, not as a record of months of work: the commit dates show it was all written in
 a day. Every commit is co-authored by Claude, because directing Claude well is the skill on show. Each
-README says what has been verified and what has not. In each, the last stage is the first real run
-against a live model, and what it found. The repositories were recreated on GitHub once their histories
+README says what has been verified and what has not. In each, the last stages are real runs
+against a live model, and what they found. The repositories were recreated on GitHub once their histories
 were final, so none holds pull requests from before; the first repository's README says which of its
 GitHub runs were on its first copy.
 
@@ -77,7 +77,7 @@ ADRs, the eval, the budgets and the guards.
 - **Running it for real finds what a stand-in cannot.** The first live runs found an empty field the API
   refused, a summary that miscounted its own tickets, copied code that lagged its source's fix, a reviewer
   that kept finding smaller things for four rounds, a command list that let an unlisted `rm` through, and delivery tests that failed only on GitHub's machines.
-  Each is fixed in its repository's last stage.
+  Each is fixed in the stage that found it.
 - **Instructions are enforced where they can be.** A rule that matters becomes a hook, a schema, a
   bound tool, a build gate or a type, and the prose points at it.
 - **Untrusted text is marked as untrusted.** Each of the four repositories that handle customer text
